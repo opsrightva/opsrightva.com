@@ -880,7 +880,7 @@
   </div>
 </section>
 
-<!-- CONTACT -->
+-- CONTACT -->
 <section class="contact" id="contact">
   <div class="section-inner">
     <div class="contact-grid">
@@ -902,24 +902,21 @@
         </div>
       </div>
       <div>
-    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-<input type="hidden" name="access_key" value="381739a9-7380-4102-915e-46b9eba01c91"/>
-
-
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="381739a9-7380-4102-915e-46b9eba01c91"/>
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
-             <input type="text" name="first_name" placeholder="Jane"/>
-
+              <input type="text" name="first_name" placeholder="Jane" required/>
             </div>
             <div class="form-group">
-             <input type="text" name="last_name" placeholder="Smith"/>
-
+              <label>Last Name</label>
+              <input type="text" name="last_name" placeholder="Smith" required/>
             </div>
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" name="email" placeholder="jane@yourcompany.com"/>
+            <input type="email" name="email" placeholder="jane@yourcompany.com" required/>
           </div>
           <div class="form-group">
             <label>What support are you looking for?</label>
@@ -934,16 +931,14 @@
           </div>
           <div class="form-group">
             <label>Message (optional)</label>
-                <textarea name="message" placeholder="Tell us a bit about your business and what you need help with…"></textarea>
+            <textarea name="message" placeholder="Tell us a bit about your business and what you need help with…"></textarea>
           </div>
           <div class="form-consent">
-            <input type="checkbox" id="consent"/>
+            <input type="checkbox" id="consent" name="consent" required/>
             <label for="consent">I'm happy for OpsRight to use the details above to get in touch with me about their services.</label>
           </div>
           <button type="submit" class="form-submit">Send Message →</button>
         </form>
-
-        </div>
       </div>
     </div>
   </div>
