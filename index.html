@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OpsRight Virtual Solutions — Efficient Support. Seamless Operations.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1f3c;
+      --navy-mid: #162847;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #f7f4ef;
+      --white: #ffffff;
+      --text: #1a2a40;
+      --muted: #5a6a80;
+      --border: rgba(201,168,76,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6%;
+      background: rgba(13,31,60,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      padding: 0.55rem 1.4rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.875rem;
+      text-decoration: none; letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 8rem 6% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.4); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-weight: 500; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 1rem;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.8rem;
+      backdrop-filter: blur(8px);
+    }
+    .stat-card .number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--gold-light); line-height: 1;
+    }
+    .stat-card .label {
+      font-size: 0.85rem; color: rgba(255,255,255,0.55);
+      margin-top: 0.3rem; font-weight: 400;
+    }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── PAIN POINT STRIP ── */
+    .pain-strip {
+      background: var(--navy-mid);
+      padding: 3.5rem 6%;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .pain-strip-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .pain-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .pain-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(201,168,76,0.12);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .pain-item h4 { color: var(--white); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .pain-item p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 6rem 6%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--navy); margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem; line-height: 1.75;
+      color: var(--muted); max-width: 540px;
+    }
+
+    /* ── HOW WE HELP ── */
+    .how { background: var(--cream); }
+    .how-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    .service-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .service-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.4rem; border-radius: 10px;
+      border: 1px solid transparent;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .service-item:hover {
+      border-color: var(--border);
+      background: var(--white);
+      transform: translateX(4px);
+      box-shadow: 0 4px 20px rgba(13,31,60,0.06);
+    }
+    .service-item-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .service-item h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+    .service-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .how-right {
+      background: var(--navy);
+      border-radius: 16px; padding: 3rem;
+      border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .how-right::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .how-right-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--white); margin-bottom: 0.7rem;
+    }
+    .how-right p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.7; margin-bottom: 2rem; }
+    .included-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .included-list li {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: rgba(255,255,255,0.8); font-size: 0.9rem;
+    }
+    .included-list li::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--gold); border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-placeholder {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .about-img-placeholder::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 30%, rgba(201,168,76,0.18) 0%, transparent 60%);
+    }
+    .about-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; color: rgba(255,255,255,0.1);
+      z-index: 1;
+    }
+    .about-badge {
+      position: absolute; bottom: -1rem; right: -1rem;
+      background: var(--gold); color: var(--navy);
+      padding: 1rem 1.4rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.85rem;
+      line-height: 1.3; text-align: center;
+      box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    }
+    .about-text .section-title { margin-bottom: 1.4rem; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; font-size: 0.975rem; }
+    .about-values {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .about-value {
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(13,31,60,0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold);
+    }
+    .about-value h5 { font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; }
+    .about-value p { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+    /* ── PRICING ── */
+    .pricing { background: var(--cream); }
+    .pricing-note {
+      font-size: 0.875rem; color: var(--muted);
+      margin-top: 0.5rem; margin-bottom: 3.5rem;
+    }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; margin-top: 1rem;
+    }
+    .plan-card {
+      background: var(--white);
+      border: 1px solid rgba(13,31,60,0.1);
+      border-radius: 14px; padding: 2rem 1.6rem;
+      position: relative; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,31,60,0.1); }
+    .plan-card.featured {
+      background: var(--navy); border-color: var(--gold);
+      border-width: 2px;
+    }
+    .plan-card.featured .plan-name,
+    .plan-card.featured .plan-price,
+    .plan-card.featured .plan-hours,
+    .plan-card.featured .plan-feature { color: var(--white); }
+    .plan-card.featured .plan-desc { color: rgba(255,255,255,0.6); }
+    .plan-card.featured .plan-feature::before { background: var(--gold-light); }
+    .plan-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--navy);
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.3rem 0.9rem; border-radius: 20px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .plan-name {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .plan-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--navy); line-height: 1;
+    }
+    .plan-price sup { font-size: 1rem; vertical-align: super; }
+    .plan-price sub { font-size: 0.8rem; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--muted); }
+    .plan-hours {
+      font-size: 0.8rem; color: var(--muted);
+      margin: 0.4rem 0 1.4rem;
+    }
+    .plan-divider {
+      border: none; border-top: 1px solid rgba(13,31,60,0.08);
+      margin-bottom: 1.4rem;
+    }
+    .plan-card.featured .plan-divider { border-color: rgba(255,255,255,0.12); }
+    .plan-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.4rem; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+    .plan-feature {
+      font-size: 0.83rem; color: var(--text);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .plan-feature::before {
+      content: ''; width: 5px; height: 5px;
+      background: var(--gold); border-radius: 50%; flex-shrink: 0;
+    }
+    .plan-btn {
+      display: block; width: 100%; text-align: center;
+      padding: 0.75rem; border-radius: 6px;
+      font-weight: 600; font-size: 0.875rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: all 0.2s;
+    }
+    .plan-btn-outline {
+      border: 1px solid rgba(13,31,60,0.2); color: var(--navy);
+    }
+    .plan-btn-outline:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
+    .plan-btn-gold {
+      background: var(--gold); color: var(--navy);
+      box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+    }
+    .plan-btn-gold:hover { background: var(--gold-light); }
+    .custom-note {
+      text-align: center; margin-top: 2.5rem;
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .custom-note a { color: var(--navy); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── WHY CHOOSE ── */
+    .why { background: var(--navy); }
+    .why .section-title { color: var(--white); }
+    .why .section-desc { color: rgba(255,255,255,0.55); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .why-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-2px); }
+    .why-card-icon {
+      width: 48px; height: 48px;
+      background: rgba(201,168,76,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1.2rem;
+    }
+    .why-card h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+    .why-card p { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--white); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .testimonial-card {
+      background: var(--cream);
+      border-radius: 12px; padding: 2rem;
+      border: 1px solid rgba(13,31,60,0.07);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,31,60,0.08); }
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem; color: var(--gold);
+      line-height: 0.5; margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    .testimonial-text {
+      font-size: 0.9rem; color: var(--text);
+      line-height: 1.75; margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; color: var(--gold-light);
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 0.875rem; font-weight: 600; color: var(--navy); }
+    .author-role { font-size: 0.78rem; color: var(--muted); }
+    .stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--cream); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; margin-top: 4rem;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--navy); margin-bottom: 1rem;
+    }
+    .contact-info p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 2rem; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1rem; font-size: 0.9rem; color: var(--text);
+    }
+    .contact-detail-icon {
+      width: 36px; height: 36px;
+      background: var(--navy); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(13,31,60,0.15);
+      border-radius: 6px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; background: var(--white);
+      color: var(--text); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-consent {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      font-size: 0.8rem; color: var(--muted); line-height: 1.5;
+    }
+    .form-consent input { margin-top: 2px; flex-shrink: 0; accent-color: var(--gold); }
+    .form-submit {
+      background: var(--navy); color: var(--white);
+      border: none; padding: 0.9rem 2rem;
+      border-radius: 6px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--gold); color: var(--navy); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 3rem 6%;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--white); font-weight: 700;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content { animation: fadeUp 0.7s ease both; }
+    .hero-visual { animation: fadeUp 0.7s ease 0.2s both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+    }
+    @media (max-width: 768px) {
+      nav .nav-links { display: none; }
+      .pain-strip-inner { grid-template-columns: 1fr; }
+      .how-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .about-img-wrap { display: none; }
+      .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ops<span>Right</span></div>
+  <ul class="nav-links">
+    <li><a href="#how">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Virtual Operations Support</div>
+      <h1>Stop drowning in tasks.<br><em>Start leading</em> with clarity.</h1>
+      <p class="hero-sub">OpsRight handles your inbox, calendar, vendors, and admin workflows — so you can focus on what actually grows your business. No overhead. No guesswork. Just results.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn-primary">View Plans</a>
+        <a href="#contact" class="btn-outline">Talk to Us First</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="number">60+</div>
+          <div class="label">Hours saved per month on top plan</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">4</div>
+          <div class="label">Flexible plans — from £1,000/mo</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="number">100%</div>
+        <div class="label">Remote, expert-led support with no in-house overhead</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">Global</div>
+        <div class="label">Supporting founders & executives worldwide</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINT STRIP -->
+<div class="pain-strip">
+  <div class="pain-strip-inner">
+    <div class="pain-item">
+      <div class="pain-icon">📥</div>
+      <div>
+        <h4>Inbox overload?</h4>
+        <p>We manage your emails, filter noise, and keep responses timely — so nothing important slips through.</p>
+      </div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-icon">🤝</div>
+      <div>
+        <h4>Vendor chaos?</h4>
+        <p>From supplier onboarding to compliance checks, we keep your vendor relationships organized and audit-ready.</p>
+      </div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-icon">📅</div>
+      <div>
+        <h4>Calendar conflicts?</h4>
+        <p>We coordinate schedules, prep meeting briefs, and ensure your time is always protected and purposeful.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW WE HELP -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="section-label">How We Help</div>
+    <h2 class="section-title">Expert support across every<br>corner of your operations</h2>
+    <div class="how-grid">
+      <div class="service-list">
+        <div class="service-item">
+          <div class="service-item-icon">📧</div>
+          <div>
+            <h4>Inbox & Calendar Management</h4>
+            <p>Full email triage, response drafting, scheduling, and calendar coordination — handled daily.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item-icon">🏭</div>
+          <div>
+            <h4>Supplier Onboarding & Due Diligence</h4>
+            <p>End-to-end vendor vetting, documentation, compliance checks, and onboarding workflows.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item-icon">📄</div>
+          <div>
+            <h4>Document Creation & Upkeep</h4>
+            <p>SOPs, reports, contracts, templates — created, maintained, and version-controlled for you.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item-icon">💬</div>
+          <div>
+            <h4>Vendor Communications</h4>
+            <p>Ongoing supplier liaison — follow-ups, dispute management, and relationship maintenance.</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-item-icon">🗂️</div>
+          <div>
+            <h4>CRM & System Updates</h4>
+            <p>Keeping your CRM clean, current, and actionable — data entry, tagging, and pipeline maintenance.</p>
+          </div>
+        </div>
+      </div>
+      <div class="how-right">
+        <div class="how-right-title">Everything in your plan</div>
+        <p>Every OpsRight plan is built around your actual workflows — not a generic checklist. Here's what comes standard:</p>
+        <ul class="included-list">
+          <li>Dedicated virtual operations support</li>
+          <li>Secure, confidential handling of all materials</li>
+          <li>Regular check-ins and progress updates</li>
+          <li>Custom task support on request</li>
+          <li>Meeting scheduling & preparation</li>
+          <li>Flexible scope — adjustable as you grow</li>
+          <li>No long-term lock-in — monthly rolling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-img-placeholder">
+          <div class="about-initials">OR</div>
+        </div>
+        <div class="about-badge">Expert-Led<br>Operations</div>
+      </div>
+      <div class="about-text">
+        <div class="section-label">About OpsRight</div>
+        <h2 class="section-title">Built by operators,<br>for operators.</h2>
+        <p>OpsRight Virtual Solutions was founded on a simple belief: great businesses shouldn't be held back by operational clutter. We bring hands-on experience in executive support, vendor management, and business administration to every client engagement.</p>
+        <p>We're not a marketplace of freelancers. We're a focused, expert-led team that embeds seamlessly into your workflow — becoming the operational backbone that lets you move faster, think clearer, and lead better.</p>
+        <p>Whether you're a solo founder drowning in admin or a lean team scaling fast, we meet you where you are and grow with you.</p>
+        <div class="about-values">
+          <div class="about-value">
+            <h5>Direct Experience</h5>
+            <p>Real-world vendor & exec support background</p>
+          </div>
+          <div class="about-value">
+            <h5>Reliable Delivery</h5>
+            <p>Deadlines met. No chasing. Ever.</p>
+          </div>
+          <div class="about-value">
+            <h5>Confidential</h5>
+            <p>Your data and operations stay private</p>
+          </div>
+          <div class="about-value">
+            <h5>Scalable</h5>
+            <p>Flex up or down as your business shifts</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple plans. Serious support.</h2>
+    <p class="pricing-note">All prices in GBP. Custom packages available on request. No hidden fees — ever.</p>
+    <div class="pricing-grid">
+
+      <div class="plan-card">
+        <div class="plan-name">Core Support</div>
+        <div class="plan-price"><sup>£</sup>1,000<sub>/mo</sub></div>
+        <div class="plan-hours">10 hours / month</div>
+        <hr class="plan-divider"/>
+        <p class="plan-desc">The essentials for staying organised and responsive — ideal for founders who need reliable admin backup.</p>
+        <ul class="plan-features">
+          <li class="plan-feature">Email inbox management</li>
+          <li class="plan-feature">Calendar coordination</li>
+          <li class="plan-feature">Document support</li>
+          <li class="plan-feature">Monthly check-in call</li>
+        </ul>
+        <a href="https://buy.stripe.com/28E6oG40G6jKe796iaabK00" class="plan-btn plan-btn-outline">Get Started</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Vendor Pro</div>
+        <div class="plan-price"><sup>£</sup>3,000<sub>/mo</sub></div>
+        <div class="plan-hours">20 hours / month</div>
+        <hr class="plan-divider"/>
+        <p class="plan-desc">Admin efficiency plus full supplier management — perfect for teams with active vendor relationships.</p>
+        <ul class="plan-features">
+          <li class="plan-feature">Everything in Core</li>
+          <li class="plan-feature">Supplier onboarding & vetting</li>
+          <li class="plan-feature">Vendor comms management</li>
+          <li class="plan-feature">Due diligence workflows</li>
+        </ul>
+        <a href="https://buy.stripe.com/fZu28q54K37yaUXeOGabK01" class="plan-btn plan-btn-outline">Get Started</a>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Executive Ops</div>
+        <div class="plan-price"><sup>£</sup>5,000<sub>/mo</sub></div>
+        <div class="plan-hours">30+ hours / month</div>
+        <hr class="plan-divider"/>
+        <p class="plan-desc">Full executive assistant support combined with end-to-end vendor operations — built for serious growth.</p>
+        <ul class="plan-features">
+          <li class="plan-feature">Everything in Vendor Pro</li>
+          <li class="plan-feature">Full EA & executive support</li>
+          <li class="plan-feature">Meeting prep & briefings</li>
+          <li class="plan-feature">CRM & system management</li>
+        </ul>
+        <a href="https://buy.stripe.com/9B6aEW9l05fG5ADcGyabK02" class="plan-btn plan-btn-gold">Get Started</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Premium Partner</div>
+        <div class="plan-price"><sup>£</sup>10,000<sub>/mo</sub></div>
+        <div class="plan-hours">60+ hours / month</div>
+        <hr class="plan-divider"/>
+        <p class="plan-desc">Full-stack operations support with on-demand access and priority response — your dedicated ops partner.</p>
+        <ul class="plan-features">
+          <li class="plan-feature">Everything in Executive Ops</li>
+          <li class="plan-feature">On-demand support access</li>
+          <li class="plan-feature">Priority response SLA</li>
+          <li class="plan-feature">Bespoke workflow builds</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM3cugNsdMc4wz7meabK03" class="plan-btn plan-btn-outline">Get Started</a>
+      </div>
+   </div>
+    <p class="custom-note">Need something different? <a href="#contact">Let's build a custom package</a> around your exact requirements.</p>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="why">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold)">Why OpsRight</div>
+    <h2 class="section-title" style="color:var(--white)">What sets us apart</h2>
+    <p class="section-desc">We're not just task-doers — we're operational partners who take ownership, communicate clearly, and deliver consistently.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-icon">🎯</div>
+        <h4>Expert-Led, Not Outsourced</h4>
+        <p>Direct, hands-on experience in vendor management, executive operations, and business admin. No middlemen, no junior placeholders — just capable professionals who know their craft.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon">⚡</div>
+        <h4>Reliable Delivery, Every Time</h4>
+        <p>Deadlines hit. Tasks completed. Communication proactive. We hold ourselves to a simple but non-negotiable standard: do what we say we'll do, when we say we'll do it.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon">📈</div>
+        <h4>Scales With Your Business</h4>
+        <p>Whether you're in growth mode or consolidating, our plans flex with your needs. Upgrade, downgrade, or go custom — no long-term lock-in required.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card-icon">🤝</div>
+        <h4>You Lead. We Support.</h4>
+        <p>You stay in full control of strategy and direction. We stay in the background, handling the operational load — invisible when we should be, present when you need us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="section-label">Client Stories</div>
+    <h2 class="section-title">Trusted by founders,<br>teams & operators</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">OpsRight completely transformed how I manage my week. My inbox is under control, my vendors are onboarded properly, and I've reclaimed hours I didn't know I was losing. Worth every penny.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div>
+            <div class="author-name">Sarah M.</div>
+            <div class="author-role">Founder, E-commerce Brand</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">We brought OpsRight in to handle supplier onboarding during a rapid expansion phase. Their attention to due diligence and comms meant zero compliance issues. Genuinely impressive work.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JK</div>
+          <div>
+            <div class="author-name">James K.</div>
+            <div class="author-role">COO, Manufacturing SME</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">I was sceptical about virtual support, but OpsRight proved me wrong fast. They communicate clearly, ask the right questions, and just get things done. It genuinely feels like having an in-house team member.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AL</div>
+          <div>
+            <div class="author-name">Amara L.</div>
+            <div class="author-role">CEO, Consultancy Firm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:2rem;font-size:0.8rem;color:var(--muted);font-style:italic;">* Placeholder testimonials — replace with real client quotes when available.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h3>Ready to delegate?<br>Let's talk.</h3>
+        <p>Whether you're ready to sign up or just want to explore your options, we're happy to have a no-pressure conversation about how OpsRight can support your business.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <span>hello@opsrightva.com</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌍</div>
+          <span>Remote support for clients worldwide</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">⏱️</div>
+          <span>Typical response within 1 business day</span>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Jane"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane@yourcompany.com"/>
+          </div>
+          <div class="form-group">
+            <label>What support are you looking for?</label>
+            <select>
+              <option value="">Select a plan or tell us more below…</option>
+              <option>Core Support (£1,000/mo)</option>
+              <option>Vendor Pro (£3,000/mo)</option>
+              <option>Executive Ops (£5,000/mo)</option>
+              <option>Premium Partner (£10,000/mo)</option>
+              <option>Custom package</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (optional)</label>
+            <textarea placeholder="Tell us a bit about your business and what you need help with…"></textarea>
+          </div>
+          <div class="form-consent">
+            <input type="checkbox" id="consent"/>
+            <label for="consent">I'm happy for OpsRight to use the details above to get in touch with me about their services.</label>
+          </div>
+          <button class="form-submit">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Ops<span>Right</span> Virtual Solutions</div>
+    <div class="footer-links">
+      <a href="#how">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 OpsRight Virtual Solutions. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
